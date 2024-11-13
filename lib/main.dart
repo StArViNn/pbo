@@ -61,6 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -75,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenWidth * 0.04), // Responsive padding
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -87,19 +90,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   onEnter: (_) => setState(() => _isHovering = true),
                   onExit: (_) => setState(() => _isHovering = false),
                   child: Container(
-                    width: 100,
-                    height: 100,
+                    width: screenWidth * 0.25, // Responsive width
+                    height: screenHeight * 0.15, // Responsive height
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(5),
                       color: _isHovering ? Colors.blue : Colors.white,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Image.asset(
-                            'assets/Burger.jpg',
-                          ),
+                          Image.asset('assets/Burger.jpg', height: 40), // Responsive image height
                           const Text('All'),
                         ],
                       ),
@@ -107,32 +108,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Container(
-                  width: 100,
-                  height: 100,
+                  width: screenWidth * 0.25,
+                  height: screenHeight * 0.15,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Image.asset('assets/Burger.jpg', fit: BoxFit.cover),
+                        Image.asset('assets/Burger.jpg', height: 40, fit: BoxFit.cover),
                         const Text('Makanan'),
                       ],
                     ),
                   ),
                 ),
                 Container(
-                  width: 100,
-                  height: 120,
+                  width: screenWidth * 0.25,
+                  height: screenHeight * 0.15,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Image.asset('assets/Tehbotol.jpg', fit: BoxFit.cover),
+                        Image.asset('assets/Tehbotol.jpg', height: 40, fit: BoxFit.cover),
                         const Text('Minuman'),
                       ],
                     ),
@@ -146,85 +147,84 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            // This is the message before the scrollable content
             // Scrollable content starts here
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+         child: SingleChildScrollView(
+          child: Column(
+crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Center(
-                          child: Container(
-                            width: 175,
-                            height: 175,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 130, 122, 122)
+                    // Food items grid
+                    for (var i = 0; i < 5; i++) // Loop to create multiple rows of food items
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          for (var j = 0; j < 2; j++) // Loop to create two food items per row
+                            Center(
+                              child: Container(
+                                width: screenWidth * 0.4, // Responsive width
+                                height: screenHeight * 0.25, // Responsive height
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color.fromARGB(255, 130, 122, 122)
                                           .withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/Burger.jpg'),
-                                const SizedBox(height: 5),
-                                Column(
-                                  children: [
-                                    const Row(
-                                      children: [
-                                        Text(
-                                          '  Burger King Medium',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3),
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                  ],
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('assets/Burger.jpg', height: 60), // Smaller image height
+                                    const SizedBox(height: 5),
+                                    Column(
                                       children: [
                                         const Row(
                                           children: [
-                                            SizedBox(height: 5),
                                             Text(
-                                              '    Rp. 50.000,00',
+                                              '  Burger King Medium',
                                               style: TextStyle(
-                                                fontSize: 10,
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                           ],
                                         ),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const SizedBox(height: 1),
-                                            ElevatedButton.icon(
-                                              style: const ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.green),
-                                              ),
-                                              label: const Text(''),
-                                              onPressed: () {
-                                                _onItemTapped(2, context);
-                                              },
-                                              icon: const Icon(
-                                                Icons.add,
-                                                color: Colors.white,
+                                            const Row(
+                                              children: [
+                                                SizedBox(height: 5),
+                                                Text(
+                                                  '    Rp. 50.000,00',
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            // Adjusted ElevatedButton to have fixed width
+                                            SizedBox(
+                                              width: 40, // Fixed width for the button
+                                              child: ElevatedButton.icon(
+                                                style: const ButtonStyle(
+                                                  backgroundColor: MaterialStatePropertyAll(Colors.green),
+                                                  padding: MaterialStatePropertyAll(EdgeInsets.all(0)), // Remove padding to keep button compact
+                                                ),
+                                                label: const Text(''), // No text
+                                                onPressed: () {
+                                                  _onItemTapped(2, context);
+                                                },
+                                                icon: const Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                  size: 16, // Smaller icon size
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -233,600 +233,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                   ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            width: 175,
-                            height: 175,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 130, 122, 122)
-                                          .withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/Burger.jpg'),
-                                const SizedBox(height: 5),
-                                Column(
-                                  children: [
-                                    const Row(
-                                      children: [
-                                        Text(
-                                          '  Burger King Medium',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Row(
-                                          children: [
-                                            SizedBox(height: 5),
-                                            Text(
-                                              '    Rp. 50.000,00',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            const SizedBox(height: 1),
-                                            ElevatedButton.icon(
-                                              style: const ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.green),
-                                              ),
-                                              label: const Text(''),
-                                              onPressed: () {
-                                                _onItemTapped(2, context);
-                                              },
-                                              icon: const Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Center(
-                          child: Container(
-                            width: 175,
-                            height: 175,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 130, 122, 122)
-                                          .withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/Burger.jpg'),
-                                const SizedBox(height: 5),
-                                Column(
-                                  children: [
-                                    const Row(
-                                      children: [
-                                        Text(
-                                          '  Burger King Medium',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Row(
-                                          children: [
-                                            SizedBox(height: 5),
-                                            Text(
-                                              '    Rp. 50.000,00',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            const SizedBox(height: 1),
-                                            ElevatedButton.icon(
-                                              style: const ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.green),
-                                              ),
-                                              label: const Text(''),
-                                              onPressed: () {
-                                                _onItemTapped(2, context);
-                                              },
-                                              icon: const Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            width: 175,
-                            height: 175,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 130, 122, 122)
-                                          .withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/Burger.jpg'),
-                                const SizedBox(height: 5),
-                                Column(
-                                  children: [
-                                    const Row(
-                                      children: [
-                                        Text(
-                                          '  Burger King Medium',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Row(
-                                          children: [
-                                            SizedBox(height: 5),
-                                            Text(
-                                              '    Rp. 50.000,00',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            const SizedBox(height: 1),
-                                            ElevatedButton.icon(
-                                              style: const ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.green),
-                                              ),
-                                              label: const Text(''),
-                                              onPressed: () {
-                                                _onItemTapped(2, context);
-                                              },
-                                              icon: const Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Center(
-                          child: Container(
-                            width: 175,
-                            height: 175,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 130, 122, 122)
-                                          .withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/Burger.jpg'),
-                                const SizedBox(height: 5),
-                                Column(
-                                  children: [
-                                    const Row(
-                                      children: [
-                                        Text(
-                                          '  Burger King Medium',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Row(
-                                          children: [
-                                            SizedBox(height: 5),
-                                            Text(
-                                              '    Rp. 50.000,00',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            const SizedBox(height: 1),
-                                            ElevatedButton.icon(
-                                              style: const ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.green),
-                                              ),
-                                              label: const Text(''),
-                                              onPressed: () {
-                                                _onItemTapped(2, context);
-                                              },
-                                              icon: const Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            width: 175,
-                            height: 175,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 130, 122, 122)
-                                          .withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/Burger.jpg'),
-                                const SizedBox(height: 5),
-                                Column(
-                                  children: [
-                                    const Row(
-                                      children: [
-                                        Text(
-                                          '  Burger King Medium',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Row(
-                                          children: [
-                                            SizedBox(height: 5),
-                                            Text(
-                                              '    Rp. 50.000,00',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            const SizedBox(height: 1),
-                                            ElevatedButton.icon(
-                                              style: const ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.green),
-                                              ),
-                                              label: const Text(''),
-                                              onPressed: () {
-                                                _onItemTapped(2, context);
-                                              },
-                                              icon: const Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Center(
-                          child: Container(
-                            width: 175,
-                            height: 175,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 130, 122, 122)
-                                          .withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/Burger.jpg'),
-                                const SizedBox(height: 5),
-                                Column(
-                                  children: [
-                                    const Row(
-                                      children: [
-                                        Text(
-                                          '  Burger King Medium',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Row(
-                                          children: [
-                                            SizedBox(height: 5),
-                                            Text(
-                                              '    Rp. 50.000,00',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            const SizedBox(height: 1),
-                                            ElevatedButton.icon(
-                                              style: const ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.green),
-                                              ),
-                                              label: const Text(''),
-                                              onPressed: () {
-                                                _onItemTapped(2, context);
-                                              },
-                                              icon: const Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            width: 175,
-                            height: 175,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 130, 122, 122)
-                                          .withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/Burger.jpg'),
-                                const SizedBox(height: 5),
-                                Column(
-                                  children: [
-                                    const Row(
-                                      children: [
-                                        Text(
-                                          '  Burger King Medium',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Row(
-                                          children: [
-                                            SizedBox(height: 5),
-                                            Text(
-                                              '    Rp. 50.000,00',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            const SizedBox(height: 1),
-                                            ElevatedButton.icon(
-                                              style: const ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.green),
-                                              ),
-                                              label: const Text(''),
-                                              onPressed: () {
-                                                _onItemTapped(2, context);
-                                              },
-                                              icon: const Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10,),
-                    
-                    
+                        ],
+                      ),
+                    const SizedBox(height: 10),
                     // Add more items here as needed
                   ],
                 ),
