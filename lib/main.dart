@@ -100,7 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Image.asset('assets/Burger.jpg', height: 40), // Responsive image height
+                          Image.asset('assets/Burger.jpg',
+                              height: 40), // Responsive image height
                           const Text('All'),
                         ],
                       ),
@@ -117,7 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Image.asset('assets/Burger.jpg', height: 40, fit: BoxFit.cover),
+                        Image.asset('assets/Burger.jpg',
+                            height: 40, fit: BoxFit.cover),
                         const Text('Makanan'),
                       ],
                     ),
@@ -133,7 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Image.asset('assets/Tehbotol.jpg', height: 40, fit: BoxFit.cover),
+                        Image.asset('assets/Tehbotol.jpg',
+                            height: 40, fit: BoxFit.cover),
                         const Text('Minuman'),
                       ],
                     ),
@@ -149,26 +152,32 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 16),
             // Scrollable content starts here
             Expanded(
-         child: SingleChildScrollView(
-          child: Column(
-crossAxisAlignment: CrossAxisAlignment.start,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Food items grid
-                    for (var i = 0; i < 5; i++) // Loop to create multiple rows of food items
+                    for (var i = 0;
+                        i < 5;
+                        i++) // Loop to create multiple rows of food items
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          for (var j = 0; j < 2; j++) // Loop to create two food items per row
+                          for (var j = 0;
+                              j < 2;
+                              j++) // Loop to create two food items per row
                             Center(
                               child: Container(
                                 width: screenWidth * 0.4, // Responsive width
-                                height: screenHeight * 0.25, // Responsive height
+                                height:
+                                    screenHeight * 0.25, // Responsive height
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: const Color.fromARGB(255, 130, 122, 122)
+                                      color: const Color.fromARGB(
+                                              255, 130, 122, 122)
                                           .withOpacity(0.5),
                                       spreadRadius: 5,
                                       blurRadius: 7,
@@ -179,7 +188,8 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset('assets/Burger.jpg', height: 60), // Smaller image height
+                                    Image.asset('assets/Burger.jpg',
+                                        height: 60), // Smaller image height
                                     const SizedBox(height: 5),
                                     Column(
                                       children: [
@@ -195,7 +205,8 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                           ],
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             const Row(
                                               children: [
@@ -210,13 +221,19 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                             ),
                                             // Adjusted ElevatedButton to have fixed width
                                             SizedBox(
-                                              width: 40, // Fixed width for the button
+                                              width:
+                                                  40, // Fixed width for the button
                                               child: ElevatedButton.icon(
                                                 style: const ButtonStyle(
-                                                  backgroundColor: MaterialStatePropertyAll(Colors.green),
-                                                  padding: MaterialStatePropertyAll(EdgeInsets.all(0)), // Remove padding to keep button compact
+                                                  backgroundColor:
+                                                      MaterialStatePropertyAll(
+                                                          Colors.green),
+                                                  padding: MaterialStatePropertyAll(
+                                                      EdgeInsets.all(
+                                                          0)), // Remove padding to keep button compact
                                                 ),
-                                                label: const Text(''), // No text
+                                                label:
+                                                    const Text(''), // No text
                                                 onPressed: () {
                                                   _onItemTapped(2, context);
                                                 },
@@ -231,18 +248,21 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                         ),
                                       ],
                                     ),
+                                    const SizedBox(
+                                        height:
+                                            10), // Add space at the bottom of each item
                                   ],
                                 ),
                               ),
                             ),
                         ],
                       ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 10), // Add space between rows
                     // Add more items here as needed
                   ],
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
