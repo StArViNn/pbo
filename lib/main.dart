@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:starbhak_mart/fourth.dart';
+import 'splash.dart';
 import 'second.dart';
 import 'third.dart';
 import 'fifth.dart';
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       title: 'FirstPage',
       initialRoute: '/',
       routes: {
-        '/': (context) => const MyHomePage(),
+        '/': (context) =>  SplashScreen(),
+        '/main': (context) => const MyHomePage(),
         '/cart': (context) => const SecondPage(),
         '/add': (context) => const CartScreen(),
         '/plus': (context) => const AddPage(),
@@ -45,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, '/main');
         break;
       case 1:
         Navigator.pushNamed(context, '/cart');

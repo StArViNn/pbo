@@ -103,7 +103,7 @@ class _AddPageState extends State<AddPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, '/main');
           },
           icon: const Icon(Icons.arrow_back),
         ),
