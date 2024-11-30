@@ -1,5 +1,18 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'fifth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+Future<void> main() async {
+  const supabaseUrl = 'https://dzrvmkujekxnqnmvbnml.supabase.co';
+  const supabaseKey =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6cnZta3VqZWt4bnFubXZibm1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5NjUxMjMsImV4cCI6MjA0NjU0MTEyM30.1zo81868FmMmaETcdwASn12xuJPdXXtt9PvKmOWlrqM';
+
+  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
+  runApp(const MyApp());
+}
+
+final supabase = Supabase.instance.client;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -9,9 +22,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FirstPage',
       initialRoute: '/',
-      routes: {
-        '/plusadd': (context) => const Add2Page(),
-      },
     );
   }
 }
@@ -24,159 +34,140 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  List<Product> products = [
-    Product(
-        name: 'Burger King Medium',
-        description: 'A delicious burger',
-        price: 'Rp. 50.000,00',
-        imagePath: 'assets/Burger.jpg'),
-    Product(
-        name: 'Teh Botol',
-        description: 'Refreshing bottled tea',
-        price: 'Rp. 4.000,00',
-        imagePath: 'assets/Tehbotol.jpg'),
-  ];
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _hargaController = TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
 
-  void _editProduct(int index) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        final nameController =
-            TextEditingController(text: products[index].name);
-        final descriptionController =
-            TextEditingController(text: products[index].description);
-        final priceController =
-            TextEditingController(text: products[index].price);
-
-        return AlertDialog(
-          title: const Text('Edit Product'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
-                controller: descriptionController,
-                decoration: const InputDecoration(labelText: 'Description'),
-              ),
-              TextField(
-                controller: priceController,
-                decoration: const InputDecoration(labelText: 'Price'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  products[index].name = nameController.text;
-                  products[index].description = descriptionController.text;
-                  products[index].price = priceController.text;
-                });
-                Navigator.of(context).pop();
-              },
-              child: const Text('Save'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _deleteProduct(int index) {
-    setState(() {
-      products.removeAt(index);
-    });
+  Future<List<dynamic>> fetchData() async {
+    final response = await supabase.from('food').select('*');
+    return response as List<dynamic>;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/main');
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.person),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "ADD Data",
+      theme: ThemeData(primaryColor: Colors.blue),
+      home: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back),
           ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/plusadd');
-              },
-              child: const Text('Add Data +'),
-            ),
-            const SizedBox(height: 16),
-            const Text('Products',
-                style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            DataTable(
-              columns: const [
-                DataColumn(label: Text('Nama')),
-                DataColumn(label: Text('Deskripsi')),
-                DataColumn(label: Text('Harga')),
-                DataColumn(label: Text('Aksi')),
-              ],
-              rows: List<DataRow>.generate(products.length, (index) {
-                return DataRow(
-                  cells: [
-                    DataCell(Text(products[index].name)),
-                    DataCell(Text(products[index].description)),
-                    DataCell(Text(products[index].price)),
-                    DataCell(
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () => _editProduct(index),
-                            icon: const Icon(Icons.edit),
-                          ),
-                          IconButton(
-                            onPressed: () => _deleteProduct(index),
-                            icon: const Icon(Icons.delete),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              }),
+          title: const Text('Add Data'),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(right: 16.0),
+              child: Icon(Icons.person),
             ),
           ],
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Form(
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(labelText: 'Name'),
+                    ),
+                    TextField(
+                      controller: _descriptionController,
+                      decoration:
+                          const InputDecoration(labelText: 'Description'),
+                    ),
+                    TextField(
+                      controller: _hargaController,
+                      decoration: const InputDecoration(labelText: 'Price'),
+                    ),
+                    TextField(
+                      controller: _quantityController,
+                      decoration: const InputDecoration(labelText: 'Quantity'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        final name = _nameController.text;
+                        final description = _descriptionController.text;
+                        final harga = _hargaController.text;
+                        final quantity = _quantityController.text;
+
+                        await supabase.from('food').insert({
+                          'name': name,
+                          'description': description,
+                          'harga': harga,
+                          'quantity': quantity,
+                        });
+
+                        setState(() {
+                          _nameController.clear();
+                          _descriptionController.clear();
+                          _hargaController.clear();
+                          _quantityController.clear();
+                        });
+                      },
+                      child: const Text('Submit'),
+                    ),
+                    FutureBuilder<List<dynamic>>(
+                      future: fetchData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.isEmpty) {
+                          return const Text('No Data Found');
+                        } else {
+                          final data = snapshot.data!;
+                          return DataTable(
+                            columns: const <DataColumn>[
+                              DataColumn(label: Text('Name')),
+                              DataColumn(label: Text('Description')),
+                              DataColumn(label: Text('Harga')),
+                              DataColumn(label: Text('Quantity')),
+                              DataColumn(label: Text('Action')),
+                            ],
+                            rows: data.map((item) {
+                              return DataRow(cells: [
+                                DataCell(Text(item['name'])),
+                                DataCell(Text(item['description'])),
+                                DataCell(Text(item['harga'].toString())),
+                                DataCell(Text(item['quantity'].toString())),
+                                DataCell(IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () async {
+                                    await supabase
+                                        .from('food')
+                                        .delete()
+                                        .eq('id', item['id']);
+
+                                    setState(() {
+                                      _nameController.clear();
+                                      _descriptionController.clear();
+                                      _hargaController.clear();
+                                      _quantityController.clear();
+                                    });
+                                  },
+                                )),
+                              ]);
+                            }).toList(),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-}
-
-class Product {
-  String name;
-  String description;
-  String price;
-  String imagePath;
-
-  Product({
-    required this.name,
-    required this.description,
-    required this.price,
-    required this.imagePath,
-  });
 }

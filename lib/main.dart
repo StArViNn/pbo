@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:starbhak_mart/fourth.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'splash.dart';
 import 'second.dart';
 import 'third.dart';
 import 'fifth.dart';
 
-void main() {
+Future<void> main() async {
+  const url = 'https://dzrvmkujekxnqnmvbnml.supabase.co';
+  const anonKey =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6cnZta3VqZWt4bnFubXZibm1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5NjUxMjMsImV4cCI6MjA0NjU0MTEyM30.1zo81868FmMmaETcdwASn12xuJPdXXtt9PvKmOWlrqM';
+
+  await Supabase.initialize(url: url, anonKey: anonKey);
   runApp(const MyApp());
 }
+
+final supabase = Supabase.instance.client;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -23,8 +31,8 @@ class MyApp extends StatelessWidget {
         '/main': (context) => const MyHomePage(),
         '/cart': (context) => const SecondPage(),
         '/add': (context) => const CartScreen(),
-        '/plus': (context) => const AddPage(),
-        '/plusadd': (context) => const Add2Page(),
+        '/plus': (context) => const Add2Page(),
+        '/plusadd': (context) => const AddPage(),
       },
     );
   }
@@ -228,9 +236,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                               child: ElevatedButton.icon(
                                                 style: const ButtonStyle(
                                                   backgroundColor:
-                                                      MaterialStatePropertyAll(
+                                                      WidgetStatePropertyAll(
                                                           Colors.green),
-                                                  padding: MaterialStatePropertyAll(
+                                                  padding: WidgetStatePropertyAll(
                                                       EdgeInsets.all(
                                                           0)), // Remove padding to keep button compact
                                                 ),

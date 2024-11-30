@@ -154,7 +154,7 @@ class _CartScreenState extends State<CartScreen> {
                 child: ElevatedButton(
                   style: const ButtonStyle(
                       backgroundColor:
-                          MaterialStatePropertyAll<Color>(Colors.blue)),
+                          WidgetStatePropertyAll<Color>(Colors.blue)),
                   onPressed: () {
                     // Handle checkout action
                   },
