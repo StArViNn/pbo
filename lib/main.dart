@@ -180,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Container(
                                 width: screenWidth * 0.4, // Responsive width
                                 height:
-                                    screenHeight * 0.25, // Responsive height
+                                    screenHeight * 0.15, // Responsive height
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,

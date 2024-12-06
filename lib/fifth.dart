@@ -27,6 +27,9 @@ class Add2Page extends StatefulWidget {
 class _Add2PageState extends State<Add2Page> {
   @override
   Widget build(BuildContext context) {
+    // Get the screen dimensions
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -44,84 +47,126 @@ class _Add2PageState extends State<Add2Page> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0), // Reduced padding
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context,'/plusadd');
+                Navigator.pushNamed(context, '/plusadd');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 32.0, vertical: 16.0),
+                    horizontal: 24.0, vertical: 12.0), // Adjusted padding
                 textStyle: const TextStyle(
                     fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
               child: const Text('Add Data +'),
             ),
-            const SizedBox(height: 16.0),
-            DataTable(
-              columns: const [
-                DataColumn(label: Text('Foto')),
-                DataColumn(label: Text('Nama Produk')),
-                DataColumn(label: Text('Harga')),
-                DataColumn(label: Text('Aksi')),
-              ],
-              rows: [
-                DataRow(
-                  cells: [
-                    DataCell(
-                      Image.asset('assets/Burger.jpg'),
-                    ),
-                    const DataCell(Text('Burger King Medium')),
-                    const DataCell(Text('Rp.50.000,00')),
-                    DataCell(
-                      IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () {
-                          // Implement delete action
-                        },
+            const SizedBox(height: 10.0), // Reduced space
+            SingleChildScrollView( // Allow scrolling if the content is too large
+              scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+              child: DataTable(
+                columns: const [
+                  DataColumn(label: Text('Foto')),
+                  DataColumn(label: Text('Nama Produk')),
+                  DataColumn(label: Text('Harga')),
+                  DataColumn(label: Text('Aksi')),
+                ],
+                rows: [
+                  DataRow(
+                    cells: [
+                      DataCell(
+                        Image.asset(
+                          'assets/mie.jpg',
+                          width: 30, // Increased size for better visibility
+                          height: 30,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                DataRow(
-                  cells: [
-                    DataCell(
-                      Image.asset('assets/TehBotol.jpg'),
-                    ),
-                    const DataCell(Text('Teh Botol')),
-                    const DataCell(Text('Rp.4.000,00')),
-                    DataCell(
-                      IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () {
-                          // Implement delete action
-                        },
+                      DataCell(
+                        SizedBox(
+                          width: 100, // Set a fixed width for the text
+                          child: Text(
+                            'Mie',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                DataRow(
-                  cells: [
-                    DataCell(
-                      Image.asset('assets/Burger.jpg'),
-                    ),
-                    const DataCell(Text('Burger King Small')),
-                    const DataCell(Text('Rp.35.000,00')),
-                    DataCell(
-                      IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () {
-                          // Implement delete action
-                        },
+                      const DataCell(Text('Rp.50.000,00')),
+                      DataCell(
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            // Implement delete action
+                          },
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                  DataRow(
+                    cells: [
+                      DataCell(
+                        Image.asset(
+                          'assets/TehBotol.jpg',
+                          width: 30,
+                          height: 30,
+                        ),
+                      ),
+                      DataCell(
+                        SizedBox(
+                          width: 100, // Set a fixed width for the text
+                          child: Text(
+                            'Teh Botol',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                      ),
+                      const DataCell(Text('Rp.4.000,00')),
+                      DataCell(
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            // Implement delete action
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  DataRow(
+                    cells: [
+                      DataCell(
+                        Image.asset(
+                          'assets/Burger.jpg',
+                          width: 30,
+                          height: 30,
+                        ),
+                      ),
+                      DataCell(
+                        SizedBox(
+                          width: 100, // Set a fixed width for the text
+                          child: Text(
+                            'Burger Small',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                      ),
+                      const DataCell(Text('Rp.35.000,00')),
+                      DataCell(
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            // Implement delete action
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

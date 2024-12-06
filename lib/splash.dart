@@ -20,15 +20,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CircularProgressIndicator(),
-            SizedBox(height: 20),
-            Text("Loading..."),
-            Text('Starbhak Mart',  style: TextStyle(fontSize: 20)),
+            Image.asset('assets/logo.png',width: 100,height: 100, fit: BoxFit.cover),
+            const CircularProgressIndicator(),
+            const SizedBox(height: 20),
+            const Text("Loading..."),
+            const Text('Starbhak Mart',  style: TextStyle(fontSize: 20)),
           ],
         ),
       ),

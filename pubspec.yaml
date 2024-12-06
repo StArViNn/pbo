@@ -67,6 +67,8 @@ flutter:
   - assets/Burger.jpg
   - assets/Tehbotol.jpg
   - assets/Tokped.jpg
+  - assets/logo.png
+  - assets/mie.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
